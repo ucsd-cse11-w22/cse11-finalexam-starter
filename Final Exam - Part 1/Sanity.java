@@ -1,18 +1,37 @@
 import tester.*;
 
-class FinalPart1_Sanity {
-    void testInterest(Tester t) {
+class Test_Sanity {
+  
+    void testSimpleInterest(Tester t) {
         Interest i = new Interest();
-        t.checkExpect(1, i.simpleInterest(1, 1, 1));
-        t.checkExpect(2134.14, i.compoundInterest(10000.00, 3.875, 5, 12));
+        double si1 = i.simpleInterest(10000.00, 3.875, 5);
+        t.checkExpect(si1, 1937.5);
+    }
+  
+    void testCompoundInterest(Tester t) {
+        Interest i = new Interest();
+        double ci1 = i.compoundInterest(10000.00, 3.875, 5, 12);
+        t.checkExpect(ci1, 2134.14);
+  
     }
 
-    void testBank(Tester t) {
-        Customer c = new Customer(1, "Greg", "1234");
-        Account a = new Account(0, c);
+    void testDeposit(Tester t){
+        Customer c = new Customer(1,"Greg","55555555");
+        Account a = new Account(100.0,c);
 
-        t.checkExpect("Deposit successful", a.deposit(1.25));
-        t.checkExpect("Withdrawal successful", a.withdraw(1.0));
-        t.checkExpect("Insufficient balance", a.withdraw(1.0));
+        t.checkExpect(a.deposit(100.0), "Deposit successful");
+        t.checkExpect(a.balance, 200.0);
+        
+    
     }
+    
+     void testWithdraw(Tester t){
+        Customer c = new Customer(1,"Sanmi","99955555");
+        Account a = new Account(1000.0,c);
+
+        t.checkExpect(a.withdraw(3000.0), "Insufficient balance");
+        t.checkExpect(a.balance, 1000.0);
+        
+    }
+    
 }
